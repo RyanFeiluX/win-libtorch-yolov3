@@ -1,7 +1,7 @@
 # win-libtorch-yolov3
 A Libtorch-based implementation of the YOLO v3 object detection algorithm working in Windows environment, written with pure C++. It's easy to be reproduced in your Windows environment. CPU is supported for now. Please enjoy yourself.
 
-This repository is derived from [libtorch-yolov3](https://github.com/walktree/libtorch-yolov3), with adaption to Windows platform.
+This repository is derived from [libtorch-yolov3](https://github.com/walktree/libtorch-yolov3), with adaption to Windows platform and association of annotation to bounding box.
 
 ## Preparation
 
@@ -11,7 +11,7 @@ This repository is derived from [libtorch-yolov3](https://github.com/walktree/li
 3. VSCode + C/C+ Extension
 4. Visual Studio 
 
-### Compilation Toolchain
+### Toolchains
 1. CMake 3.8+
 2. Visual Studio Community 20xx Release - amd64(dependent on your computer configuration)
    Note: In place once Visual Studio is installed. No need of additional action.
