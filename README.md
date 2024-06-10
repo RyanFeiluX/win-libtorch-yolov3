@@ -1,41 +1,55 @@
-# libtorch-yolov3
-A Libtorch implementation of the YOLO v3 object detection algorithm, written with pure C++. It's fast, easy to be integrated to your production, and CPU and GPU are both supported. Enjoy ~
+# win-libtorch-yolov3
+A Libtorch-based implementation of the YOLO v3 object detection algorithm working in Windows environment, written with pure C++. It's easy to be reproduced in your Windows environment. CPU is supported for now. Please enjoy yourself.
 
-This project is inspired by the [pytorch version](https://github.com/ayooshkathuria/pytorch-yolo-v3), I rewritten it with C++.
+This repository is derived from [libtorch-yolov3](https://github.com/walktree/libtorch-yolov3), with adaption to Windows platform.
 
-## Requirements
-1. LibTorch v1.0.0
-2. Cuda
-3. OpenCV (just used in the example)
+## Preparation
 
+### Requirements
+1. LibTorch(CPU version) v1.6.0 and newer
+2. OpenCV 3.3 and newer (used only in images input/output phases)
+3. VSCode + C/C+ Extension
+4. Visual Studio 
 
-## To compile
-1. cmake3
-2. gcc 5.4 +
+### Compilation Toolchain
+1. CMake 3.8+
+2. Visual Studio Community 20xx Release - amd64(dependent on your computer configuration)
+   Note: In place once Visual Studio is installed. No need of additional action.
 
+### Adaptation to your environment
+1. Modify TORCH_PREFIX_PATH to point to your Torch installation directory.
 
+   Example：
 
-```
-mkdir build && cd build
-cmake3 -DCMAKE_PREFIX_PATH="your libtorch path" ..
+   ```set(TORCH_PREFIX_PATH "XXX/libtorch-win-shared-with-deps-debug-1.6.0+cpu/libtorch")```
+2. Modify OPENCV_PREFIX_PATH to point to your Torch installation directory.
 
-# if there are multi versions of gcc, then tell cmake which one your want to use, e.g.:
-cmake3 -DCMAKE_PREFIX_PATH="your libtorch path" -DCMAKE_C_COMPILER=/usr/local/bin/gcc -DCMAKE_CXX_COMPILER=/usr/local/bin/g++ ..
-```
+   Example：
 
+   ```set(OPENCV_PREFIX_PATH "XXX/opencv-3.3.0-vc14/opencv")```
 
-## Running the detector
+## Building executable
+Trigger Build command in VSCode UI to get build/Debug/yolo-app.exe
+
+## Detection from images
 
 The first thing you need to do is to get the weights file for v3:
 
 ```
-cd models
-wget https://pjreddie.com/media/files/yolov3.weights 
+Download https://pjreddie.com/media/files/yolov3.weights to directory models
 ```
 
 On Single image:
 ```
-./yolo-app ../imgs/person.jpg
+cd build/Debug
+yolo-app.exe ../../imgs/person.jpg
 ```
+On Multiple images under a directory imgs:
+```
+cd build/Debug
+yolo-app.exe ../../imgs
+```
+Generated images with bounding box and annotation are kept under directory det.
 
-As I tested, it will take 25 ms on GPU ( 1080 ti ). please run inference job more than once, and calculate the average cost.
+
+Also Seen [eng-pytorch-yolov3](https://github.com/RyanFeiluX/eng-pytorch-yolov3)
