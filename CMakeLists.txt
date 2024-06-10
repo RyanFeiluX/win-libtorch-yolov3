@@ -1,8 +1,6 @@
 cmake_minimum_required(VERSION 3.8 FATAL_ERROR)
 project(yolo-app)
 
-set(TARGET ${PROJECT_NAME})
-
 # enable_language(CUDA)
 set(CUDA_PREFIX_PATH "C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v12.1")
 set(SRC_DIR "${CUDA_PREFIX_PATH}/extras/visual_studio_integration/MSBuildExtensions")
@@ -36,7 +34,7 @@ message([DEBUG] "OpenCV include path: ${OpenCV_INCLUDE_DIRS}")
 aux_source_directory(. DIR_SRCS)
 
 if (MSVC)
-	# 添加编译选项, 设置 输入代码的编码格式为 utf-8
+	# Add compilation option to set codeset to utf-8
 	add_compile_options("/source-charset:utf-8")
 endif(MSVC)
 
