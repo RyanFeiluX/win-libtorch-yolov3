@@ -106,6 +106,11 @@ int main(int argc, const char* argv[])
         auto start = std::chrono::high_resolution_clock::now();
         
         auto output = net.forward(img_tensor);
+
+        // prediction: batch size * bboxes of all anchors & all scales      * (bbox coord, confidence, classes)
+        //             1          * 10647                                   * 85
+        // detail:     batch size * anchors of 3 scales * bboxes per anchor * (bbox coord, confidence, classes)
+        //             1          * (13*13+26*26+52*52) * 3                 * (4+1+80)
         
         // filter result by NMS 
         // class_num = 80
