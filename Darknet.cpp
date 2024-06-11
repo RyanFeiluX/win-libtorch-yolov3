@@ -703,10 +703,10 @@ torch::Tensor Darknet::write_results(torch::Tensor prediction, int num_classes, 
 	box_a.select(2, 2) = prediction.select(2, 0) + prediction.select(2, 2).div(2);
 	box_a.select(2, 3) = prediction.select(2, 1) + prediction.select(2, 3).div(2);
 
-    prediction.slice(2, 0, 4) = box_a.slice(2, 0, 4);
+    prediction.slice(2, 0, 3) = box_a.slice(2, 0, 3); // Overwrite bbox position info, size=4. 
 
     int batch_size = prediction.size(0);
-    int item_attr_size = 5;
+    int item_attr_size = 5; // The size is defined by yolo algorithm
 
     torch::Tensor output = torch::ones({1, prediction.size(2) + 1});
     bool write = false;
@@ -717,7 +717,7 @@ torch::Tensor Darknet::write_results(torch::Tensor prediction, int num_classes, 
     {
     	auto image_prediction = prediction[i];
 
-    	// get the max classes score at each result
+    	// get the max classes score & index(id) at each result
     	std::tuple<torch::Tensor, torch::Tensor> max_classes = torch::max(image_prediction.slice(1, item_attr_size, item_attr_size + num_classes), 1);
 
     	// class score
