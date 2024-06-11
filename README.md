@@ -14,6 +14,7 @@ This repository is derived from [libtorch-yolov3](https://github.com/walktree/li
 ### Toolchains
 1. CMake 3.8+
 2. Visual Studio Community 20xx Release - amd64(dependent on your computer configuration)
+
    Note: In place once Visual Studio is installed. No need of additional action.
 
 ### Adaptation to your environment
@@ -21,12 +22,12 @@ This repository is derived from [libtorch-yolov3](https://github.com/walktree/li
 
    Example：
 
-   ```set(TORCH_PREFIX_PATH "XXX/libtorch-win-shared-with-deps-debug-1.6.0+cpu/libtorch")```
+   ```set(TORCH_PREFIX_PATH "<your path>/libtorch")```
 2. Modify OPENCV_PREFIX_PATH to point to your Torch installation directory.
 
    Example：
 
-   ```set(OPENCV_PREFIX_PATH "XXX/opencv-3.3.0-vc14/opencv")```
+   ```set(OPENCV_PREFIX_PATH "<your path>/opencv")```
 
 ## Building executable
 Trigger Build command in VSCode UI to get build/Debug/yolo-app.exe
@@ -51,5 +52,37 @@ yolo-app.exe ../../imgs
 ```
 Generated images with bounding box and annotation are kept under directory det.
 
+## Debugging in VS Code IDE
+If you would like to debug your code in VSCode, please follow following steps.
+1. Start VS Code from Developer Command Prompt. An example as below.
+   ```
+   D:\src>cd win-libtorch-yolov3
+   D:\src\win-libtorch-yolov3>code .
+   ```
+2. Update includePath field via UI or c_cpp_properties.json to contain your OpenCV and Libtorch include paths.
+   ```
+   "includePath": [
+                "${workspaceFolder}/**",
+                "<your path>/opencv/build/include",
+                "<your path>/libtorch/include/torch/csrc/api/include"
+            ]
+   ```
+3. Create launch.json with your actual values, like
+   ```
+   "configurations": [
+        {
+            "name": "(Windows) Launch",
+            "type": "cppvsdbg",
+            "request": "launch",
+            "program": "${fileDirname}/../build/Debug/<your app>.exe",
+            "args": ["${fileDirname}/../imgs"],
+            "stopAtEntry": false,
+            "cwd": "${fileDirname}",
+            "environment": [],
+            "console": "externalTerminal"
+        }
 
-Also Seen [eng-pytorch-yolov3](https://github.com/RyanFeiluX/eng-pytorch-yolov3)
+    ]
+   ```
+
+For cooresponding Pytorch version, please move to [eng-pytorch-yolov3](https://github.com/RyanFeiluX/eng-pytorch-yolov3)
